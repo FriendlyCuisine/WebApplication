@@ -18,11 +18,11 @@
         <hr id="userDropdownHr">
       </div>
     </div>
-      <a href="#">Settings</a>
+      <a href="settings.php">Settings</a>
       <a href="logout.php">Log out</a>
     </div>
   </div>
-  <a href="forums.php">Forums</a>
+  <a href="forums.php">Friends</a>
   <a href="events.php">Events</a>
   <a href="food.php">Food/Drink</a>
   <a href="dashboard.php">Dashboard</a>
