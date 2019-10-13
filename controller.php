@@ -62,7 +62,7 @@ if(isset($_POST['logIn'])) {
   $username = $_POST['username'];
   $password = sha1($_POST['password']);
 
-  $sql = "SELECT userID, userUsername FROM user WHERE userUsername = :username and userPassword = :password";
+  $sql = "SELECT userID, userFirstname, userLastname, userUsername FROM user WHERE userUsername = :username and userPassword = :password";
   $stmt = $conn->prepare($sql);
 
   $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -75,9 +75,11 @@ if(isset($_POST['logIn'])) {
        if($row = $stmt->fetchObject()) {
          session_start();
          $_SESSION['loggedin'] = true;
-         $_SESSION['username'] = $username;
-
-          header("location: dashboard.php");
+         $_SESSION['userID'] = $row->userID;
+         $_SESSION['username'] = $row->userUsername;
+         $_SESSION['firstName'] = $row->userFirstname;
+         $_SESSION['lastName'] = $row->userLastname;
+         header("location: dashboard.php");
        }
      }
      else {
@@ -85,4 +87,23 @@ if(isset($_POST['logIn'])) {
      }
 }
 
+//--------------- Update user credentials - settings.php ---------------//
+if(isset($_POST['updateCredentials'])) {
+  $userID = $_SESSION['userID'];
+  $firstName = $_POST['firstName'];
+  $lastName = $_POST['lastName'];
+
+  $sql = "UPDATE user SET userFirstName = :firstName, userLastName = :lastName WHERE userID = :userID";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+  $stmt->bindParam(':firstName', $firstName, PDO::PARAM_STR);
+  $stmt->bindParam(':lastName', $lastName, PDO::PARAM_STR);
+
+  $stmt->execute();
+
+  $_SESSION['firstName'] = $firstName;
+  $_SESSION['lastName'] = $lastName;
+  header("location: settings.php");
+}
 ?>
