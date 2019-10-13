@@ -11,6 +11,12 @@ if(isset($_POST['signUp'])) {
     if(strlen($password) >= 8) {
       if($_POST['password'] == $_POST['confirmpassword']) {
 
+        $sql = $conn->prepare('SELECT Count(*) FROM user');
+        $sql->execute();
+        $count = $sql->fetchColumn();
+
+        $userID = $count+1;
+
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = sha1($_POST['password']);
@@ -19,17 +25,18 @@ if(isset($_POST['signUp'])) {
         $_SESSION['email'] = $email;
         $_SESSION['loggedin'] = true;
 
-        $sql = "INSERT INTO user (username, email, password) VALUES (:username, :email, :password)";
+        $sql = "INSERT INTO user (userID, userUsername, userEmail, userPassword, Message_messageID) VALUES (:userID, :username, :email, :password, :userID)";
         $stmt = $conn->prepare($sql);
 
+        $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
 
         $stmt->execute();
 
-        //If registration is successsful, redirect to dashboard
-        if($stmt->rowCount()>0) {
+        //If registration is successsful, redirect somewhere
+        if($stmt->rowCount() > 0) {
           $_SESSION['message'] = "Registration succesful! Added $username to the database!";
           header("location: dashboard.php");
         }
@@ -52,11 +59,10 @@ if(isset($_POST['signUp'])) {
 
 //--------------- User Login - login.php ---------------//
 if(isset($_POST['logIn'])) {
-  session_start();
   $username = $_POST['username'];
   $password = sha1($_POST['password']);
 
-  $sql = "SELECT userID, username FROM user WHERE username = :username and password = :password";
+  $sql = "SELECT userID, userUsername FROM user WHERE userUsername = :username and userPassword = :password";
   $stmt = $conn->prepare($sql);
 
   $stmt->bindParam(':username', $username, PDO::PARAM_STR);
@@ -67,8 +73,9 @@ if(isset($_POST['logIn'])) {
      //If login is successsful, redirect to dashboard
      if($stmt->rowCount() == 1) {
        if($row = $stmt->fetchObject()) {
+         session_start();
          $_SESSION['loggedin'] = true;
-         $_SESSION['username'] = $row->username;
+         $_SESSION['username'] = $username;
 
           header("location: dashboard.php");
        }
