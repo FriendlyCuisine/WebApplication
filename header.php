@@ -12,7 +12,7 @@
       <div class="dropdown-sec-1">
       <img src="img/default-profile-pic.png">
       <br>
-      <?php echo $_SESSION['username'];?>
+      <?php echo $_SESSION['firstName']." ".$_SESSION['lastName']."<br>"."@".$_SESSION['username'];?>
       <br>
       <div style="float:left;">
         <hr id="userDropdownHr">
@@ -22,10 +22,10 @@
       <a href="logout.php">Log out</a>
     </div>
   </div>
-  <a href="forums.php">Friends</a>
   <a href="events.php">Events</a>
   <a href="food.php">Food/Drink</a>
   <a href="dashboard.php">Dashboard</a>
+  <a href="forums.php">Profile</a>
   <a href="index.php">Home</a>
   <?php
 }else {
