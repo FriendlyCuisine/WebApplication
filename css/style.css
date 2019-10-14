@@ -207,3 +207,12 @@ h1 {
   font-size: 150%;
   margin: 0 0 15px;
 }
+
+/* ---------------------- profile.php modal ---------------------- */
+#profileImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 250px;
+  width: 250px;
+}
