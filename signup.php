@@ -4,6 +4,8 @@
     <h1>Create an account</h1>
     <form class="form" action="" method="post" enctype="multipart/form-data" autocomplete="off">
       <div><?php echo $_SESSION['message'] ?></div>
+      <input type="text" placeholder="First Name" name="firstName" minlength="1" maxlength="15" required /><br>
+      <input type="text" placeholder="Last Name" name="lastName" minlength="1" maxlength="15" required /><br>
       <input type="text" placeholder="Username" name="username" minlength="1" maxlength="14" required /><br>
       <input type="email" placeholder="Email" name="email" maxlength="45" required /><br>
       <input type="password" placeholder="Password" name="password" autocomplete="new-password" minlength="8" maxlength="25" required /><br>
