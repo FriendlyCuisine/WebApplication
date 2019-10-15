@@ -18,6 +18,7 @@
         <hr id="userDropdownHr">
       </div>
     </div>
+      <a href="profile.php">My Profile</a>
       <a href="settings.php">Settings</a>
       <a href="logout.php">Log out</a>
     </div>
@@ -25,7 +26,7 @@
   <a href="events.php">Events</a>
   <a href="food.php">Food/Drink</a>
   <a href="dashboard.php">Dashboard</a>
-  <a href="forums.php">Profile</a>
+  <a href="profile.php">Profile</a>
   <a href="index.php">Home</a>
   <?php
 }else {
