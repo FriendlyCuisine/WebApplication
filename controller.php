@@ -17,18 +17,24 @@ if(isset($_POST['signUp'])) {
 
         $userID = $count+1;
 
+        $firstName = $_POST['firstName'];
+        $lastName = $_POST['lastName'];
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = sha1($_POST['password']);
 
+        $_SESSION['firstName'] = $firstName;
+        $_SESSION['lastName'] = $lastName;
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
         $_SESSION['loggedin'] = true;
 
-        $sql = "INSERT INTO user (userID, userUsername, userEmail, userPassword, Message_messageID) VALUES (:userID, :username, :email, :password, :userID)";
+        $sql = "INSERT INTO user (userID, userFirstName, userLastName, userUsername, userEmail, userPassword, Message_messageID) VALUES (:userID, :firstName, :lastName, :username, :email, :password, :userID)";
         $stmt = $conn->prepare($sql);
 
         $stmt->bindParam(':userID', $userID, PDO::PARAM_INT);
+        $stmt->bindParam(':firstName', $firstName, PDO::PARAM_STR);
+        $stmt->bindParam(':lastName', $lastName, PDO::PARAM_STR);
         $stmt->bindParam(':username', $username, PDO::PARAM_STR);
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->bindParam(':password', $password, PDO::PARAM_STR);
