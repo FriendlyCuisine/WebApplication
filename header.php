@@ -4,13 +4,13 @@
   ?>
   <div class="dropdown">
     <button class="dropbtn">
-      <img style="float:left;width: 20px; height: 20px;margin-right: 8px;" src="img/default-profile-pic.png">
+      <?php echo '<img style="float:left;width: 20px; height: 20px;margin-right: 8px;" src="'.$_SESSION['profileImage'].'">' ?>
       <div style="float:left;vertical-align: text-bottom;"><?php echo $_SESSION['username'];?></div>
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-content">
       <div class="dropdown-sec-1">
-      <img src="img/default-profile-pic.png">
+      <?php echo '<img style="height: 70px; width: 70px;border-radius:35px;" src="'.$_SESSION['profileImage'].'">' ?>
       <br>
       <?php echo $_SESSION['firstName']." ".$_SESSION['lastName']."<br>"."@".$_SESSION['username'];?>
       <br>
@@ -18,7 +18,7 @@
         <hr id="userDropdownHr">
       </div>
     </div>
-      <a href="profile.php">My Profile</a>
+      <a href="profile.php?id=<?php echo $_SESSION['userID'];?>">My Profile</a>
       <a href="settings.php">Settings</a>
       <a href="logout.php">Log out</a>
     </div>
@@ -26,7 +26,7 @@
   <a href="events.php">Events</a>
   <a href="food.php">Food/Drink</a>
   <a href="dashboard.php">Dashboard</a>
-  <a href="profile.php">Profile</a>
+  <a href="profile.php?id=<?php echo $_SESSION['userID'];?>">Profile</a>
   <a href="index.php">Home</a>
   <?php
 }else {
