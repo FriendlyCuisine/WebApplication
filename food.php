@@ -17,5 +17,12 @@ include 'controller.php';
 </header>
 
 <body>
-  <h1>Food & Drink</h1>
+  <h1>Restaurants</h1>
+  <div id="wrapper">
+    <div class="restaurantBoxWrapper">
+      <form action="" method="post">
+        <input type="text" name="" value="">
+      </form>
+    </div>
+  </div>
 </body>
