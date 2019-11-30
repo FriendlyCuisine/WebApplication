@@ -1,8 +1,9 @@
 <?php
+
 $servername = "localhost";
 $username = "root";
 $password = "root";
-$dbname = "friendlycusinie";
+$dbname = "friendlycuisine";
 
 $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
 ?>
