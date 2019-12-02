@@ -166,7 +166,13 @@ if(!empty($_REQUEST['delete'])){
         <div class="top-action-btn">
             <button class="new-message buttons" id="myBtn">Create Event</button>
         </div>
-        <hr/>
+
+        <div class="top-action-btn pull-right">
+            <form action="events.php" method="get">
+                <input type="search" class="form-control" name="search" style="height: 50px;width: 250px;" value="<?php echo !empty($_REQUEST['search']) ? trim($_REQUEST['search']): '';?>" placeholder="Enter search and press enter"/>
+            </form>
+        </div>
+        <hr style="clear: both;"/><br/>
     </div>
     <div class="table-responsive">
         <table class="table-inbox">
@@ -187,7 +193,16 @@ if(!empty($_REQUEST['delete'])){
 
                 $created_by = !empty($_SESSION['userID']) ? $_SESSION['userID'] : 0;
 
-                $stmt = $conn->prepare("SELECT * FROM event WHERE userID=? ORDER BY eventID DESC");
+                $sql="SELECT * FROM event WHERE userID=? ";
+
+                if (!empty($_REQUEST['search'])) {
+                    $search=trim($_REQUEST['search']);
+                    $sql .= " AND eventName LIKE '%$search%' OR eventLocation LIKE '%$search%' OR eventDate LIKE '%$search%' ";
+                }
+
+                $sql .= " ORDER BY eventID DESC";
+
+                $stmt = $conn->prepare($sql);
                 $param=$created_by;
 
             if($stmt->execute([$param])){ $i=1;
