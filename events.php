@@ -60,7 +60,7 @@ if(!empty($_REQUEST['eventName']) && !empty($_REQUEST['description'])){
 
         if (gettype($image) == "string") {
 
-            $stmt = $conn->prepare('INSERT INTO event (eventName, eventDesc, eventDate,eventLocation,eventImage,userID) 
+            $stmt = $conn->prepare('INSERT INTO event (eventName, eventDesc, eventDate,eventLocation,eventImage,userID)
                                                     VALUES (:eventName, :eventDesc, :eventDate,:eventLocation,:eventImage,:userID)');
 
             $result = $stmt->execute([
@@ -193,7 +193,7 @@ if(!empty($_REQUEST['delete'])){
 
                 $created_by = !empty($_SESSION['userID']) ? $_SESSION['userID'] : 0;
 
-                $sql="SELECT * FROM event WHERE userID=? ";
+                $sql="SELECT * FROM event";
 
                 if (!empty($_REQUEST['search'])) {
                     $search=trim($_REQUEST['search']);
@@ -228,7 +228,7 @@ if(!empty($_REQUEST['delete'])){
                             <img src="<?php echo $row['eventImage'];?>" alt="<?php echo$row['eventName'];?>"/>
                         </td>
                         <td>
-                            <a class="buttons edit-button" href="#<?php echo $row['eventID'];?>" onclick="return document.getElementById('editModal<?php echo $row['eventID'];?>').style.display='block';">Edit</a>
+                          <?php if($_SESSION['userID'] == $row['userID']) { ?> <a class="buttons edit-button" href="#<?php echo $row['eventID'];?>" onclick="return document.getElementById('editModal<?php echo $row['eventID'];?>').style.display='block';">Edit</a> <?php } ?>
 
                             <!-- The Modal -->
                             <div id="editModal<?php echo $row['eventID'];?>" class="modal">
@@ -284,7 +284,7 @@ if(!empty($_REQUEST['delete'])){
 
                             </div>
 
-                            <a class="buttons delete-button" href="events.php?delete=<?php echo $row['eventID'];?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
+                            <?php if($_SESSION['userID'] == $row['userID']) { ?> <a class="buttons delete-button" href="events.php?delete=<?php echo $row['eventID'];?>" onclick="return confirm('Are you sure to delete?');">Delete</a> <?php } ?>
                         </td>
                     </tr>
 
