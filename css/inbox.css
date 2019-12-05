@@ -1,0 +1,234 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: black;
+}
+
+.table-responsive{
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.inbox-wrapper{
+    width: 90%;
+    padding-right: 5%;
+    padding-left: 5%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.inbox-header{
+    font-weight: bolder;
+}
+
+table {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #fce8e8;
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+}
+
+table thead tr th{
+    background: #fce8e8;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.buttons{
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    cursor: pointer;
+}
+
+.new-message{
+    color:black;
+    background-color: rgba(255, 250, 227);
+    background-image: none;
+    border-color: #5d576b;
+}
+
+.edit-button{
+    color:#fff;
+    background-color: #f7567c;
+    background-image: none;
+    border-color: #f7567c;
+}
+
+.edit-button:hover{
+    color:black;
+    background-color: #99e1d9;
+    background-image: none;
+    border-color: #99e1d9;
+    
+}
+
+.reply-button{
+    color:#fff;
+    background-color: #f7567c;
+    background-image: none;
+    border-color: #f7567c;
+}
+
+.reply-button:hover{
+    color:black;
+    background-color: #99e1d9;
+    background-image: none;
+    border-color: #99e1d9;
+    
+}
+
+.delete-button{
+    color:#fff;
+    background-color: #f7567c;
+    background-image: none;
+    border-color: #f7567c;
+}
+
+.delete-button:hover{
+    color:black;
+    background-color: #99e1d9;
+    background-image: none;
+    border-color: #99e1d9;
+    
+}
+
+.new-message:hover{
+    color: #fff;
+    background-color: #5d576b;
+    background-image: none;
+    border-color: #5d576b;
+}
+
+.sent-messages{
+    color:black;
+    background-color: rgba(255, 250, 227);
+    background-image: none;
+    border-color: #5d576b;
+}
+
+.sent-messages:hover{
+    color: #fff;
+    background-color: #5d576b;
+    background-image: none;
+    border-color: #5d576b;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.8); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+.message{
+    min-height: 200px;
+    width: 100%;
+    padding: 2%;
+    resize: none;
+}
+
+.username{
+    width: 100%;
+    height: 50px;
+    padding: 2%;
+}
+
+.form-compose{
+    width: 100%;
+    display: block;
+}
+
+.send-message{
+    background: #333;
+    color: #fff;
+}
+
+.alert {
+    width:100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
+.badge-pill {
+    padding-right: .6em;
+    padding-left: .6em;
+    border-radius: 10rem;
+}
+
+.badge-success {
+    color: black;
+    background-color: rgba(255, 250, 227);
+    font-size: 18px;
+}
