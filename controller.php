@@ -65,8 +65,7 @@ if(isset($_POST['signUp'])) {
           header("location: dashboard.php");
         }
         else {
-var_dump($stmt->errorInfo());exit;
-          $_SESSION['message'] = 'Username or email already in use!'.$stmt->errorInfo();
+          $_SESSION['message'] = 'Username or email already in use!';
         }
       }
       else {
@@ -113,7 +112,7 @@ if(isset($_POST['logIn'])) {
        }
      }
      else {
-        $_SESSION['message'] = "Your Login Name or Password is invalid: ";
+        $_SESSION['message'] = "Your Login Name or Password is invalid";
      }
 }
 
@@ -239,5 +238,3 @@ if(isset($_POST['save'])) {
     header("Location:profile.php?id=" . $_SESSION['userID']);
   }
 
-
-?>

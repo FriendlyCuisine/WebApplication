@@ -63,7 +63,7 @@ include 'session.php';
                 </div>
                 <div>
                     <div class="pull-right"><a href="friendDelete.php <?php echo '?id='.$userID;?>" class=""> Unfriend </a></div>
-                    <div><?php echo $friendName; ?></div>
+                    <div><a href="" class=""><?php echo $friendName; ?></a></div>
                 </div>
             </div>
             <hr>
