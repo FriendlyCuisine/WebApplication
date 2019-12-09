@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'controller.php';
-include 'session.php';
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -12,17 +11,18 @@ include 'session.php';
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="keywords" content="Friendly Cuisine">
 	<?php include 'resources.php'; ?>
+	<link href="css/dashboard.css" rel='stylesheet' type='text/css' />
 </head>
 
 <header>
 	<?php include 'header.php'; ?>
 </header>
-
+<?php if($_SESSION['loggedin'] == true) { ?>
 <body>
 	<h1>Dashboard</h1>
 	<div class="column">
 
-		<div class="contentBody">
+		<div  class="contentBody">
 			<h2>Share Post</h2>
 			<div class="container">
 				<form method="post" action="post.php">
@@ -43,22 +43,22 @@ include 'session.php';
 
 				<?php
                 $query = $conn->query(
-                    "SELECT 
-                        * 
-                    FROM 
-                        post 
-                    LEFT JOIN 
-                        user 
-                    ON 
-                        user.userID = post.userID 
+                    "SELECT
+                        *
+                    FROM
+                        post
+                    LEFT JOIN
+                        user
+                    ON
+                        user.userID = post.userID
                     ORDER BY
                         postID DESC"
                 );
                 while($row = $query->fetch()){
                     $postedBy = $row['userFirstName']." ".$row['userLastName'];
                     $postedImage = $row['userProfileImage'];
-                    $id = $row['postID'];
-                    
+                    $id = $row['postId'];
+
             ?>
 				<div class="">
 					<a><img src="<?php echo $postedImage; ?>" style="width:50px;height:50px" class="img-circle"></a>
@@ -98,7 +98,7 @@ include 'session.php';
 			<br><br>
 			<div class="container">
 				<div class="">
-					<?php 
+					<?php
                     if (isset($_POST['submit'])) {
 						$image = addslashes(file_get_contents($_FILES['userProfileImage']['tmp_name']));
 						$image_name = addslashes($_FILES['userProfileImage']['name']);
@@ -107,8 +107,8 @@ include 'session.php';
 						$location = "upload/" . $_FILES["userProfileImage"]["name"];
 						$conn->query(
 							"INSERT INTO
-								image (imageLocation) 
-							VALUES 
+								image (imageLocation)
+							VALUES
 								('$location')"
 						);
 					}
@@ -117,9 +117,9 @@ include 'session.php';
 				<div class="">
 					<?php
                 $query = $conn->query(
-                    "SELECT 
-                        * 
-                    FROM 
+                    "SELECT
+                        *
+                    FROM
                         image");
                 while($row = $query->fetch()){
                 $id = $row['imageID'];
@@ -138,5 +138,7 @@ include 'session.php';
 	</div>
 
 </body>
-
+<?php } else {
+  header("location: index.php");
+} ?>
 </html>

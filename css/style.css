@@ -3,8 +3,17 @@ body {
   font-family: 'Cabin', sans-serif;
 }
 
-h1,h2 {
+h1 {
   text-align: center;
+}
+
+#signupInput,#loginInput {
+  border: 1px solid #5d576b;
+  font-size: 16px;
+  padding: 10px 5px;
+  height: 20px;
+  margin: 5px;
+  width: 298px;
 }
 
 #wrapper {
@@ -271,7 +280,63 @@ h1,h2 {
   margin: 0 0 15px;
 }
 
-/* -------- settings.php ------- */
+/* ---------------------- restaurantRequest.php modal ---------------------- */
+.rr-window {
+  position: fixed;
+  background-color: rgba(200, 200, 200, 0.75);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.rr-window:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.rr-window>div {
+  width: 320px;
+  height: 400px;
+  position: relative;
+  margin: 15% auto;
+  padding: 2rem;
+  background: #fff;
+  color: #444;
+}
+
+.rr-window header {
+  font-weight: bold;
+}
+
+.rr-close {
+  color: #aaa;
+  line-height: 50px;
+  font-size: 80%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 70px;
+  text-decoration: none;
+}
+
+.rr-close:hover {
+  color: #000;
+}
+
+.rr-window h1 {
+  font-size: 150%;
+  margin: 0 0 15px;
+}
+
+/* ------------------------- settings.php ------------------------- */
 .leftSection {
     width: 500px;
     min-height: 300px;
@@ -429,13 +494,392 @@ h1,h2 {
     background-color: red;
 }
 
-/* food.php */
-.restaurantBoxWrapper {
+/* ------------------------- food.php ------------------------- */
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+button:focus,
+button:active,
+button:hover,
+label:focus,
+.btn:active,
+.btn.active
+{
+    outline:0px !important;
+ /* -webkit-appearance:none; */
+}
+
+.restaurantWrapper {
   margin: auto;
   width: 700px;
-  height: 290px;
-  border: 1px solid red;
+  height: auto;
+  border: 0px solid red;
   text-align: center;
+}
+
+#restaurantSearchInput {
+  padding-left: 7px;
+  font-size: 18px;
+  vertical-align: middle;
+  width: 400px;
+  height: 30px;
+  border: 1px solid #d4d4d4;
+}
+
+#searchRestaurantBtn {
+  vertical-align: middle;
+  font-weight: 500;
+  font-size: 16px;
+  color: #000;
+  padding: 7px 10px;
+  border: 0px solid black;
+  background-color: #99e1d9;
+}
+
+#searchResultsSection {
+  margin: auto;
+  height: 70px;
+  width: 550px;
+  border: 1px solid black;
+  text-align: left;
+  margin-bottom: 10px;
+  padding: 5px;
+}
+
+#searchLeft {
+  border: 0px solid blue;
+  height: 62px;
+  width: 60px;
+  float: left;
+  padding-top: 4px;
+  margin-left: 5px;
+}
+
+#searchRight {
+  border: 0px solid blue;
+  height: 66px;
+  width: 471px;
+  float: left;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#restaurantSearchBoxWrapper {
+  margin-top: 20px;
+  border: 0px solid green;
+}
+
+#topRatedSection {
+  width: 340px;
+  float: left;
+  min-height: 300px;
+  border: 0px solid green;
+}
+
+#newestSection {
+  width: 340px;
+  float: left;
+  border: 0px solid green;
+  min-height: 300px;
+}
+
+#topRatedBoxWrapper {
+  margin: auto;
+  border: 1px solid black;
+  width: 300px;
+  min-height: 300px;
+}
+
+#newestBoxWrapper {
+  margin: auto;
+  border: 1px solid black;
+  width: 300px;
+  min-height: 300px;
+}
+
+#createRestaurantWrapper {
+  padding-top: 30px;
+  clear: both;
+  border: 0px solid red;
+  text-align: left;
+  width: 680px;
+}
+
+#createRestauranBox {
+  margin: auto;
+  border: 1px solid black;
+  width: 640px;
+}
+
+#createRestaurantForm {
+  display: none;
+  padding: 5px 20px;
+}
+
+#manageRestaurantForm {
+  display: none;
+  padding: 5px 20px;
+}
+
+#showCreateRestaurantBtn {
+  cursor: pointer;
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #2dcc7c;
+}
+
+#showManageRestaurantBtn {
+  cursor: pointer;
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #000;
+}
+
+.input-hidden {
+  position: absolute;
+  left: -9999px;
+}
+
+#mapWrapper {
+  border: 1px solid black;
+  margin-left: 4px;
+  height: 360px;
+  width: 406px;
+}
+
+#map {
+  height: 300px;
+  margin: auto;
+  width: 300px;
+}
+
+#restaurantGroupWrapper {
+  border: 1px solid black;
+  margin: 4px;
+  height: 178px;
+  width: 406px;
+}
+
+#restaurantGroupTitle {
+  text-align: center;
+  background-color: #99e1d9;
+}
+
+#restaurantRateTitle {
+  text-align: center;
+  background-color: #fce8e8;
+}
+
+#restaurantMapTitle {
+  text-align: center;
+  color: #fff;
+  background-color: #000; /* #5d576b */
+}
+
+#memberWrapper {
+  border: 0px solid pink;
+  height: 56px;
+  text-align: center;
+  margin: auto;
+  padding-top: 10px;
+}
+
+#restaurantHr {
+  width: 350px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#requestWrapper {
+  border: 0px solid pink;
+  height: 54px;
+  text-align: center;
+  padding-top: 18px;
+}
+
+#requestMembershipBtn {
+  cursor: pointer;
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #6f00ff;
+}
+
+#requestedBtn {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #f5ba56;
+}
+
+#loginBtn {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #24b3f0;
+}
+
+#signupBtn {
+  cursor: pointer;
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #2dcc7c;
+}
+
+#isMemberBtn {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #2dcc7c;
+}
+
+#reviewCommentTextBox {
+  resize:none;
+  height: 76px;
+  width: 230px;
+  border: 1px solid #d6d6d6;
+  margin-left: 18px;
+}
+
+#reviewSubmitBtn {
+  text-align: center;
+  display: none;
+}
+
+#restaurantSection {
+  border: 0px solid red;
+  text-align: left;
+}
+
+#left {
+  padding-top: 4px;
+  float: left;
+  border-top: 0px solid black;
+  border-left: 0px solid black;
+  border-bottom: 0px solid black;
+  width: 280px;
+  height: 550px;
+}
+
+#right {
+  padding-top: 4px;
+  float: left;
+  border: 0px solid black;
+  border-left: 0px solid black;
+  width: 416px;
+  height: 550px;
+}
+
+#restaurantBox {
+  padding: 10px 0px 0px 10px;
+  width: 260px;
+  border: 1px solid black;
+  margin: auto;
+  min-height: 350px;
+}
+
+#restaurantReviewSection {
+  padding-top: 5px;
+  overflow:auto;
+  clear: both;
+  border: 0px solid green;
+  margin: auto;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+}
+
+#reviewTitle {
+  font-size: 20px;
+}
+
+#restaurantRateWrapper {
+  margin: 4px;
+  border: 1px solid black;
+  height: 178px;
+}
+
+#restaurantReviewBox {
+  border: 0px solid pink;
+  padding-bottom: 10px;
+  padding-left: 44px;
+  width: 500px;
+  margin: auto;
+  overflow:auto;
+}
+
+#userCommentLeft {
+  padding-top: 6px;
+  margin-top: 10px;
+  border: 1px solid black;
+  width: 100px;
+  min-height: 80px;
+  float: left;
+}
+
+#userCommentRight {
+  text-align: left;
+  padding-top: 6px;
+  padding-left: 10px;
+  margin-top: 10px;
+  border-top: 1px solid black;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  width: 340px;
+  min-height: 80px;
+  float: left;
+}
+
+#checkRequest {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #272727;
+}
+
+#restaurantChat {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #24b3f0;
+}
+
+#declineRequestBtn {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #5d576b;
+}
+
+#acceptRequestBtn {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #2dcc7c;
+}
+
+#manageRestaurantBtn {
+  border: 0px solid black;
+  height: 30px;
+  font-size: 14px;
+  color: white;
+  background-color: #2dcc7c;
 }
 
 /* ---------------------- profile.php modal ---------------------- */
@@ -491,14 +935,14 @@ border: black solid 10px;
 }
 
 .container img {
-    
+
   float: left;
   max-width: 60px;
   width: 100%;
   margin-right: 20px;
 /*  border-radius: 50%;*/
   border: solid black;
-    
+
 }
 
 .time-right {
@@ -512,13 +956,6 @@ border: black solid 10px;
    width: 50%;
    height: 50%;
    padding: 10px;
-}
-* {
-   box-sizing: border-box;
-/*
-	overflow: hidden;
-    margin: auto;
-*/
 }
 
 .column {

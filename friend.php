@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'controller.php';
-include 'session.php';
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -17,8 +16,8 @@ include 'session.php';
 </head>
 
 <header>
-    <?php 
-        include 'header.php'; 
+    <?php
+        include 'header.php';
     ?>
 </header>
 
@@ -37,33 +36,34 @@ include 'session.php';
     <div class="contentBody">
         <div class="container">
             <?php
+            $n = $_SESSION['userID'];
                 $query = $conn->query(
-                    "SELECT 
-                        user.userID, 
-                        user.userFirstName, 
-                        user.userLastName, 
-                        user.userProfileImage, 
-                        friend.friendID 
-                    FROM 
-                        user, 
+                    "SELECT
+                        user.userID,
+                        user.userFirstName,
+                        user.userLastName,
+                        user.userProfileImage,
+                        friend.friendID
+                    FROM
+                        user,
                         friend
-                    WHERE 
-                        friend.myFriendID = '$session_id' AND user.userID = friend.myID
-                    OR 
-                        friend.myID = '$session_id' AND user.userID = friend.myFriendID"
+                    WHERE
+                        friend.friendID = '$n' AND user.userID = friend.myID
+                    OR
+                        friend.myID = '$n' AND user.userID = friend.friendID"
                  );
                 while($row = $query->fetch()){
                     $friendName = $row['userFirstName']." ".$row['userLastName'];
                     $friendImage = $row['userProfileImage'];
-                    $userID = $row['friendID'];
+                    $friendID = $row['friendID'];
             ?>
             <div>
                 <div>
                     <a><img src="<?php echo $friendImage; ?>" style="width:50; height:50" class="img-circle"></a>
                 </div>
                 <div>
-                    <div class="pull-right"><a href="friendDelete.php <?php echo '?id='.$userID;?>" class=""> Unfriend </a></div>
-                    <div><a href="" class=""><?php echo $friendName; ?></a></div>
+                    <div class="pull-right"><a href="friendDelete.php?id=<?php echo $friendID; ?>" class=""> Unfriend </a></div>
+                    <div><?php echo $friendName; ?></div>
                 </div>
             </div>
             <hr>

@@ -17,8 +17,8 @@ include 'session.php';
 </head>
 
 <header>
-    <?php 
-        include 'header.php'; 
+    <?php
+        include 'header.php';
     ?>
 </header>
 
@@ -26,8 +26,6 @@ include 'session.php';
     <h1><?php echo $_SESSION['firstName']." ".$_SESSION['lastName'];?></h1>
 
     <?php echo '<img id="profileImage" name="profileImage" ;" src="'.$_SESSION['profileImage'].'">' ?>
-
-    <!--    <img id="profileImage" name="profileImage" src="img/default-profile-pic.png">-->
     <br>
 
     <div id="profileIcon">
@@ -42,11 +40,11 @@ include 'session.php';
         <div class="container">
             <?php
                 $query = $conn->query(
-                    "SELECT 
-                        * 
-                    FROM 
-                        user 
-                    WHERE 
+                    "SELECT
+                        *
+                    FROM
+                        user
+                    WHERE
                         userID = '$session_id'");
                 $row = $query->fetch();
                 $userID = $row['userID'];
@@ -78,7 +76,7 @@ include 'session.php';
             </form>
 
             <!--
-            <?php 
+            <?php
                 //validation removed..
                 if ($_GET['cancel'] == 'cancel') {
                     // Action

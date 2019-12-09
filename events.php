@@ -147,12 +147,13 @@ if(!empty($_REQUEST['delete'])){
     <?php include 'resources.php'; ?>
     <link rel="stylesheet" href="css/inbox.css"/>
 </head>
+<?php if($_SESSION['loggedin'] == true) { ?>
 <body>
-<header> <?php include 'header.php'; ?></header>
+<header><?php include 'header.php'; ?></header>
 
 <div class="inbox-wrapper">
     <div class="inbox-header">
-        <h1>Event</u></h1>
+        <h1>Events</h1>
         <?php
         if(!empty($notify)) {
             ?>
@@ -225,7 +226,7 @@ if(!empty($_REQUEST['delete'])){
                             <?php echo $row['eventLocation'];?>
                         </td>
                         <td>
-                            <img src="<?php echo $row['eventImage'];?>" alt="<?php echo$row['eventName'];?>"/>
+                            <img style="width:100px;height:100px;" src="<?php echo $row['eventImage'];?>" alt="<?php echo$row['eventName'];?>"/>
                         </td>
                         <td>
                           <?php if($_SESSION['userID'] == $row['userID']) { ?> <a class="buttons edit-button" href="#<?php echo $row['eventID'];?>" onclick="return document.getElementById('editModal<?php echo $row['eventID'];?>').style.display='block';">Edit</a> <?php } ?>
@@ -343,4 +344,7 @@ if(!empty($_REQUEST['delete'])){
 </div>
 <script src="js/inbox.js"></script>
 </body>
+<?php } else {
+  header("location: index.php");
+} ?>
 </html>

@@ -1,13 +1,14 @@
-<?php 
-    include 'controller.php';
-    include 'session.php';
+<?php
+include 'controller.php';
+    session_start();
+    $n = $_SESSION['userID'];
 
 	$myFriendID = $_POST['myFriendID'];
 	$conn ->query(
-        "INSERT INTO 
-            friend (myID, myFriendID) 
+        "INSERT INTO
+            Friend (myID, friendID)
         VALUES
-            ('$session_id','$myFriendID')"
+            ('$n','$myFriendID')"
     );
- 	header('location:friend.php'); 
+ 	header('location:friend.php');
 ?>

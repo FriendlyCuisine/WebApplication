@@ -41,7 +41,7 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 } else {
   $userID = $_SESSION['userID'];
-  $target_file = $target_dir . rand() . $userID . ".jpg";
+  $target_file = $target_dir . rand() . $userID . ".". $imageFileType;
   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
     $_SESSION['profileImage'] = $target_file;
     $sql = "UPDATE user SET userProfileImage = :profileImage WHERE userID = :userID";

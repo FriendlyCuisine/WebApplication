@@ -4,11 +4,11 @@
     <h1>Login</h1>
     <form action="" method="post">
       <div><?php echo $_SESSION['message'] ?></div>
-      <input type="text" placeholder="Username" name="username"/>
-      <input type="password" placeholder="Password" name="password"/>
+      <input type="text" id="loginInput" placeholder="Username" name="username"/>
+      <input type="password" id="loginInput" placeholder="Password" name="password"/>
       <br/>
       <br/>
-      <input name="logIn" type="submit" value="Login"/><br/>
+      <input name="logIn" id="loginBtn" type="submit" value="Login"/><br/>
     </form>
   </div>
 </div>

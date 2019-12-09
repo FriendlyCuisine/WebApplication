@@ -1,18 +1,19 @@
 <?php
+session_start();
     include 'controller.php';
-    include 'session.php';
     $postContent = $_POST['postContent'];
+    $n = $_SESSION['userID'];
     $conn->query(
-        "INSERT INTO 
+        "INSERT INTO
             post (
                 postContent,
                 postDatePosted,
                 userID
-            ) 
+            )
         VALUES (
             '$postContent',
             NOW(),
-            '$session_id')"
+            '$n')"
     );
 
     header('location: dashboard.php');

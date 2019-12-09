@@ -15,14 +15,24 @@ include 'controller.php';
 <header>
   <?php include 'header.php'; ?>
 </header>
-
+<?php if($_SESSION['loggedin'] == true) { ?>
 <body>
-  <h1>Restaurants</h1>
+  <?php if(!isset($_GET['r'])) { echo "<h1>Restaurants</h1>"; } ?>
   <div id="wrapper">
-    <div class="restaurantBoxWrapper">
+    <div class="restaurantWrapper">
+      <?php include 'restaurant.php'; ?>
       <form action="" method="post">
-        <input type="text" name="" value="">
+        <input type="text" id="restaurantSearchInput" name="restaurantSearchInput" value="<?php if(isset($_GET['s'])){ echo $_GET['s']; } ?>" <?php if(!isset($_GET['s']) && !isset($_GET['r'])){ echo "autofocus"; } ?>>
+        <input type="submit" id="searchRestaurantBtn" name="searchRestaurant" value="Search">
       </form>
+      <?php include 'search.php'; ?>
+      <?php include 'featured.php'; ?>
+      <?php include 'createRestaurant.php'; ?>
+      <br><br>
     </div>
   </div>
 </body>
+<?php } else {
+  header("location: index.php");
+} ?>
+</html>

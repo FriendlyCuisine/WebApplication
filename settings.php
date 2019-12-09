@@ -32,7 +32,7 @@ include 'controller.php';
   }
   </script>
 </header>
-
+<?php if($_SESSION['loggedin'] == true) { ?>
 <body>
   <h1>Account Settings</h1>
   <div id="wrapper">
@@ -112,4 +112,8 @@ include 'controller.php';
       </div>
     </div>
   </div>
+<?php } else {
+  header("location: index.php");
+} ?>
 </body>
+</html>

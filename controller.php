@@ -5,6 +5,7 @@ $_SESSION['invalidEmail'] = '';
 $_SESSION['badPassword'] = '';
 $_SESSION['invalidPassword'] = '';
 
+
 //--------------- User Registration - signup.php ---------------//
 if(isset($_POST['signUp'])) {
   $email = $_POST['email'];
@@ -212,6 +213,164 @@ if(isset($_POST['updatePrivacy'])) {
   }
 }
 
+//--------------- Search restaurant - food.php ---------------//
+if(isset($_POST['searchRestaurant'])) {
+  $a = $_POST['restaurantSearchInput'];
+  header("location: food.php?s=".$a."");
+}
+
+//--------------- Rate/Review restaurant - food.php ---------------//
+if(isset($_POST['rateRestaurant'])) {
+  $comment = $_POST['f'];
+  $userId = $_SESSION['userID'];
+  $restaurantId = $_GET['r'];
+  $newRestaurantVote = $_POST['restaurantVote'];
+
+  $sql = "SELECT restaurantTotal, restaurantVote FROM Restaurant WHERE restaurantID = :restaurantID";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':restaurantID', $restaurantId, PDO::PARAM_INT);
+  $stmt->execute();
+
+  if($stmt->rowCount() == 1) {
+    if($row = $stmt->fetchObject()) {
+      $restaurantTotal = $row->restaurantTotal + $newRestaurantVote;
+      $restaurantVote = $row->restaurantVote + 1;
+      $newRestaurantRating = ($restaurantTotal / $restaurantVote);
+
+      $sql = "UPDATE Restaurant SET restaurantRating = :restaurantRating, restaurantTotal = :restaurantTotal, restaurantVote = :restaurantVote WHERE restaurantID = :restaurantID";
+      $stmt = $conn->prepare($sql);
+
+      $stmt->bindParam(':restaurantRating', $newRestaurantRating, PDO::PARAM_STR);
+      $stmt->bindParam(':restaurantTotal', $restaurantTotal, PDO::PARAM_INT);
+      $stmt->bindParam(':restaurantVote', $restaurantVote, PDO::PARAM_INT);
+      $stmt->bindParam(':restaurantID', $restaurantId, PDO::PARAM_INT);
+      $stmt->execute();
+
+      //Insert RestaurantVote Table
+      $sql = "INSERT INTO RestaurantVote (User_userID, Restaurant_restaurantID, restaurantReview, restaurantVote) VALUES (:userID, :restaurantID, :restaurantReview, :restaurantVote)";
+      $stmt = $conn->prepare($sql);
+
+      $stmt->bindParam(':userID', $userId, PDO::PARAM_INT);
+      $stmt->bindParam(':restaurantID', $restaurantId, PDO::PARAM_INT);
+      $stmt->bindParam(':restaurantReview', $comment, PDO::PARAM_STR);
+      $stmt->bindParam(':restaurantVote', $newRestaurantVote, PDO::PARAM_INT);
+      $stmt->execute();
+
+      header("location: food.php?r=".$restaurantId."");
+    }
+  }
+}
+
+//--------------- Resquest Membership - food.php ---------------//
+if(isset($_POST['requestMembership'])) {
+  $userId = $_POST['restaurantRequestUserId'];
+  $restaurantId = $_POST['restaurantRequestRestaurantId'];
+
+  $sql = "INSERT INTO RestaurantRequest (userId, restaurantId) VALUES (:userId, :restaurantId)";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+  $stmt->bindParam(':restaurantId', $restaurantId, PDO::PARAM_INT);
+
+
+  $stmt->execute();
+
+  header("location: food.php?r=".$restaurantId."");
+}
+
+//--------------- Create Restaurant - food.php ---------------//
+if(isset($_POST['createRestaurantBtn'])) {
+
+  $userId = $_SESSION['userID'];
+  $restaurantName = $_POST['newRestaurantName'];
+  $restaurantDesc = $_POST['newRestaurantDesc'];
+
+  $sql = "INSERT INTO Restaurant (restaurantName, restaurantDesc, userId) VALUES (:restaurantName, :restaurantDesc, :userId)";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':restaurantName', $restaurantName, PDO::PARAM_STR);
+  $stmt->bindParam(':restaurantDesc', $restaurantDesc, PDO::PARAM_STR);
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+
+  $stmt->execute();
+
+  $sql = "SELECT * FROM Restaurant WHERE userId = :userId";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_STR);
+  $stmt->execute();
+
+  if($stmt->rowCount() == 1) {
+    if($row = $stmt->fetchObject()) {
+      $restaurantId = $row->restaurantID;
+    }
+  }
+
+  header("location: food.php?r=".$restaurantId."");
+}
+
+//--------------- Decline Restaurant Request - food.php ---------------//
+if(isset($_POST['declineRequestBtn'])) {
+  $userId = $_POST['userId'];
+  $restaurantId = $_POST['restaurantId'];
+
+  $sql = "DELETE FROM RestaurantRequest WHERE userId = :userId AND restaurantId = :restaurantId";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+  $stmt->bindParam(':restaurantId', $restaurantId, PDO::PARAM_INT);
+
+  $stmt->execute();
+
+  header("location: food.php?r=".$restaurantId."#rr");
+}
+
+//--------------- Accept Restaurant Request - food.php ---------------//
+if(isset($_POST['acceptRequestBtn'])) {
+  $userId = $_POST['userId'];
+  $restaurantId = $_POST['restaurantId'];
+
+  $sql = "INSERT INTO RestaurantMember (userId, restaurantId) VALUES (:userId, :restaurantId)";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+  $stmt->bindParam(':restaurantId', $restaurantId, PDO::PARAM_INT);
+
+  $stmt->execute();
+
+  $sql = "DELETE FROM RestaurantRequest WHERE userId = :userId AND restaurantId = :restaurantId";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+  $stmt->bindParam(':restaurantId', $restaurantId, PDO::PARAM_INT);
+
+  $stmt->execute();
+
+  header("location: food.php?r=".$restaurantId."#rr");
+
+}
+
+//--------------- Edit Restaurant Info - food.php ---------------//
+if(isset($_POST['manageRestaurantBtn'])) {
+  $userId = $_SESSION['userID'];
+  $restaurantName = $_POST['newRestaurantName'];
+  $restaurantDesc = $_POST['newRestaurantDesc'];
+  $restaurantLat = $_POST['newRestaurantLat'];
+  $restaurantLong = $_POST['newRestaurantLong'];
+
+  $sql = "UPDATE Restaurant SET restaurantName = :restaurantName, restaurantDesc = :restaurantDesc, restaurantX = :restaurantX, restaurantY = :restaurantY WHERE userId = :userId";
+  $stmt = $conn->prepare($sql);
+
+  $stmt->bindParam(':restaurantName', $restaurantName, PDO::PARAM_STR);
+  $stmt->bindParam(':restaurantDesc', $restaurantDesc, PDO::PARAM_STR);
+  $stmt->bindParam(':restaurantX', $restaurantLat, PDO::PARAM_STR);
+  $stmt->bindParam(':restaurantY', $restaurantLong, PDO::PARAM_STR);
+  $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+
+  $stmt->execute();
+
+}
+
 //--------------- Update changes in profileEdit.php ---------------//
 if(isset($_POST['save'])) {
     $userID = $_POST['userID'];
@@ -220,21 +379,26 @@ if(isset($_POST['save'])) {
     $userBirthday = $_POST['userBirthday'];
     $userWork= $_POST['userWork'];
     $userPhone = $_POST['userPhone'];
-    $userDesc = $_POST['userDesc'];  
+    $userDesc = $_POST['userDesc'];
 
     $conn->query(
-            "UPDATE 
-                user 
-            SET 
+            "UPDATE
+                user
+            SET
                 userFirstName = '$userFirstName',
                 userLastName = '$userLastName',
                 userBirthday ='$userBirthday',
-                userWork ='$userWork', 
-                userPhone ='$userPhone', 
-                userDesc ='$userDesc' 
-            WHERE 
+                userWork ='$userWork',
+                userPhone ='$userPhone',
+                userDesc ='$userDesc'
+            WHERE
                 userID = '$userID'"
     );
+
+    $_SESSION['firstName'] = $userFirstName;
+    $_SESSION['lastName'] = $userLastName;
+
     header("Location:profile.php?id=" . $_SESSION['userID']);
   }
 
+?>
