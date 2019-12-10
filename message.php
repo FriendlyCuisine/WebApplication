@@ -74,7 +74,7 @@ function getUsername($userID,$conn){
 <head>
     <title>My Messages - Friendly Cuisine</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="keywords" content="Friendly Cuisine">
     <?php include 'resources.php'; ?>
     <link rel="stylesheet" href="css/inbox.css"/>
@@ -147,12 +147,21 @@ function getUsername($userID,$conn){
                     <td><?php echo $i++?></td>
                     <td>
                         <span class="badge badge-pill badge-success">
-                            <?php echo strtolower(trim($type))=='inbox' ? getUsername($row['messageSenderID'],$conn) : getUsername($row['messageRecieverID'],$conn);?>
+                            <?php $username = strtolower(trim($type))=='inbox' ? getUsername($row['messageSenderID'],$conn) : getUsername($row['messageRecieverID'],$conn);
+								echo $username;
+							?>
                         </span>
                     </td>
                     <td><?php echo $row['messageContent'];?></td>
                     <td><?php echo strtolower(trim($type))=='inbox' ? $row['messageDateSended'] : $row['messageDateRecieved'];?></td>
                     <td>
+						<?php
+						if(strtolower(trim($type))=='inbox'){
+						?>
+		<button class="buttons reply-button myBtnReply" onClick="replyButton(this,'<?php echo $username;?>','<?php echo $row['messageID'];?>','<?php echo $row['messageContent'];?>')">Reply</button>
+						<?php
+						}
+						?>
                         <a class="buttons delete-button" href="message.php?delete=<?php echo $row['messageID'];?>" onclick="return confirm('Are you sure to delete?');">Delete</a>
                     </td>
                 </tr>
@@ -173,7 +182,10 @@ function getUsername($userID,$conn){
             <span class="close">&times;</span>
             <br/>
             <form class="form-compose"id="form-compose" action="message.php" method="post">
-                <div>
+				<div>
+					<h3 id="reply_header"></h3>
+				</div>
+                <div id="username_container">
                     <label for="username"><strong>Enter Username</strong></label>
                     <input type="text" name="username" class="username" id="username" placeholder="Username.." required/>
                     <span id="usernameError"></span>
