@@ -1,13 +1,24 @@
-let modal = document.getElementById("myModal");
+var modal = document.getElementById("myModal");
 
 // Get the button that opens the modal
-let btn = document.getElementById("myBtn");
+var btn = document.getElementById("myBtn");
+
+function replyButton(thi,username,messageid,message){
+	// When the user clicks on the button, open the modal
+	document.getElementById("username").value=username;
+	document.getElementById("username_container").style.display="none";
+	document.getElementById("reply_header").innerHTML="Reply to <i>"+username+"</i>: &nbsp;&nbsp;&nbsp;<u>"+message+"</u>";
+	var modal = document.getElementById("myModal");
+	modal.style.display = "block";
+}
 
 // Get the <span> element that closes the modal
-let span = document.getElementsByClassName("close")[0];
+var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
+	document.getElementById("username_container").style.display="block";
+	document.getElementById("reply_header").innerHTML="";
     modal.style.display = "block";
 };
 
